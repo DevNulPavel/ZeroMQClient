@@ -1,9 +1,10 @@
 //  Hello World client
-#include <zmq.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <assert.h>
+#include <zmq.h>
 
 //  Receive ZeroMQ string from socket and convert into C string
 //  Chops string at 255 chars, if it's longer
@@ -30,7 +31,7 @@ int simpleClient(){
     zmq_connect (requester, "tcp://localhost:5555");
     
     int request_nbr;
-    for (request_nbr = 0; request_nbr != 10; request_nbr++) {
+    for (request_nbr = 0; request_nbr < 100; request_nbr++) {
         char buffer [10];
         printf ("Sending Hello %d…\n", request_nbr);
         zmq_send (requester, "Hello", 5, 0);
@@ -76,5 +77,5 @@ int pushClient(){
 }
 
 int main (void) {
-    return pushClient();
+    return simpleClient();
 }
